@@ -1,0 +1,208 @@
+# 🔥 EvalForge — Implementation Plan
+
+> **LLM Evaluation, Benchmarking & Hallucination Detection Platform**
+
+---
+
+## 📋 Project Summary
+
+EvalForge is a production-grade system that evaluates, benchmarks, and improves LLM outputs by detecting hallucinations, measuring semantic accuracy, evaluating RAG pipelines, and comparing multiple LLMs across performance, cost, and latency.
+
+---
+
+## 🏗️ Architecture Overview
+
+```mermaid
+graph TD
+    A[React + TypeScript Frontend] -->|REST API| B[FastAPI Backend]
+    B --> C[Evaluation Engine]
+    C --> D[Embedding Model - Sentence Transformers]
+    C --> E[LLM APIs - Gemini / OpenAI]
+    C --> F[Scoring Engine]
+    B --> G[Database - SQLite/PostgreSQL]
+    A --> H[Dashboard - Recharts]
+    B --> I[Dataset Manager - CSV/JSON]
+```
+
+---
+
+## 📁 Project Structure
+
+```
+EvalForge/
+├── backend/
+│   ├── app/
+│   │   ├── main.py              # FastAPI app entry
+│   │   ├── api/
+│   │   │   ├── routes/
+│   │   │   │   ├── evaluation.py    # Evaluation endpoints
+│   │   │   │   ├── benchmark.py     # Benchmarking endpoints
+│   │   │   │   ├── dataset.py       # Dataset upload/manage
+│   │   │   │   └── rag.py           # RAG evaluation endpoints
+│   │   ├── core/
+│   │   │   ├── config.py           # Settings & env vars
+│   │   │   ├── scoring.py          # Scoring engine
+│   │   │   └── embeddings.py       # Embedding utilities
+│   │   ├── models/
+│   │   │   ├── schemas.py          # Pydantic models
+│   │   │   └── database.py         # DB models
+│   │   ├── services/
+│   │   │   ├── hallucination.py    # Hallucination detection
+│   │   │   ├── evaluator.py        # LLM evaluation logic
+│   │   │   ├── benchmark.py        # Multi-model benchmarking
+│   │   │   └── rag_evaluator.py    # RAG pipeline evaluator
+│   │   └── utils/
+│   │       └── helpers.py
+│   ├── requirements.txt
+│   ├── Dockerfile
+│   └── .env.example
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Dashboard.tsx
+│   │   │   ├── EvaluationForm.tsx
+│   │   │   ├── BenchmarkView.tsx
+│   │   │   ├── RAGEvaluator.tsx
+│   │   │   ├── DatasetUploader.tsx
+│   │   │   ├── ScoreCard.tsx
+│   │   │   └── ModelComparison.tsx
+│   │   ├── pages/
+│   │   │   ├── Home.tsx
+│   │   │   ├── Evaluate.tsx
+│   │   │   ├── Benchmark.tsx
+│   │   │   └── RAG.tsx
+│   │   ├── hooks/
+│   │   ├── utils/
+│   │   ├── App.tsx
+│   │   └── index.css
+│   ├── package.json
+│   └── vite.config.ts
+├── datasets/
+│   ├── squad_sample.json
+│   └── truthfulqa_sample.csv
+├── notebooks/
+│   └── exploration.ipynb
+├── architecture.png
+├── demo.gif
+└── README.md
+```
+
+---
+
+## 🚀 Phased Build Plan
+
+### Phase 1: Project Setup & Backend Foundation
+| Task | Details |
+|------|---------|
+| Initialize backend | FastAPI project with proper structure |
+| Initialize frontend | Vite + React + TypeScript + Tailwind CSS |
+| Set up database | SQLite for MVP (upgrade to PostgreSQL later) |
+| Configure CORS | Cross-origin for frontend ↔ backend |
+| Environment config | `.env` for API keys (Gemini, OpenAI) |
+
+### Phase 2: Core Evaluation Engine
+| Task | Details |
+|------|---------|
+| Embedding service | Sentence Transformers for semantic embeddings |
+| Semantic similarity scoring | Cosine similarity between expected & actual outputs |
+| Relevance scoring | Embedding-based relevance to context |
+| Hallucination detection | Context grounding verification + embedding checks |
+| Scoring engine | Composite scoring with weighted metrics |
+
+### Phase 3: Multi-Model Benchmarking
+| Task | Details |
+|------|---------|
+| Gemini API integration | Google Generative AI SDK |
+| OpenAI API integration | OpenAI SDK |
+| Benchmark runner | Run same prompts across models, collect metrics |
+| Metrics collection | Accuracy, latency, cost per token |
+| Comparison engine | Side-by-side model comparison |
+
+### Phase 4: RAG Evaluation System
+| Task | Details |
+|------|---------|
+| Retrieval quality scoring | Precision/recall of retrieved documents |
+| Context relevance scoring | Semantic similarity to query |
+| Grounding score | Output grounded in retrieved context |
+| End-to-end RAG metrics | Combined retrieval + generation quality |
+
+### Phase 5: Dataset Management
+| Task | Details |
+|------|---------|
+| CSV/JSON upload | File upload + parsing endpoints |
+| Dataset storage | Store & manage evaluation datasets |
+| Real dataset integration | SQuAD sample + TruthfulQA sample |
+| Dataset preview | View uploaded data in frontend |
+
+### Phase 6: Web Dashboard (Frontend)
+| Task | Details |
+|------|---------|
+| Premium UI design | Dark mode, glassmorphism, gradients |
+| Evaluation form | Prompt + Context + Expected Output input |
+| Score visualization | Recharts bar/radar/line charts |
+| Model comparison view | Side-by-side metrics with charts |
+| Dataset uploader | Drag-and-drop CSV/JSON upload |
+| Error distribution charts | Hallucination type breakdown |
+| Real-time results | Live evaluation result display |
+
+### Phase 7: Polish & Deploy
+| Task | Details |
+|------|---------|
+| Docker setup | Containerize backend |
+| Architecture diagram | Generate architecture.png |
+| README | Comprehensive documentation |
+| Deploy | Vercel (frontend) + Render (backend) |
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **Backend** | Python 3.11+, FastAPI, Uvicorn |
+| **ML/AI** | Sentence Transformers, HuggingFace, LangChain |
+| **LLM APIs** | Google Gemini API, OpenAI API |
+| **Frontend** | React 18, TypeScript, Tailwind CSS, Vite |
+| **Charts** | Recharts |
+| **Database** | SQLite (MVP) → PostgreSQL |
+| **Infra** | Docker, Vercel, Render |
+
+---
+
+## 🎯 Success Metrics
+
+| Metric | Target |
+|--------|--------|
+| Semantic evaluation accuracy | ≥ 85% |
+| Hallucination detection precision | ≥ 70% |
+| Average response latency | ≤ 300ms |
+| Dataset size support | ≥ 1,000 samples |
+
+---
+
+## ⚡ MVP Scope (What We Build First)
+
+1. ✅ Evaluation API (semantic similarity + relevance scoring)
+2. ✅ Embedding similarity scoring engine
+3. ✅ Basic hallucination detection
+4. ✅ CSV dataset upload & parsing
+5. ✅ Interactive dashboard with score visualization
+6. ✅ Single model evaluation flow (Gemini)
+
+---
+
+## 🔮 Advanced Features (Post-MVP)
+
+- Prompt optimization suggestions
+- Auto dataset generation
+- Fine-tuning recommendations
+- Multi-agent evaluation system
+- Redis caching for repeated evaluations
+
+---
+
+> [!IMPORTANT]
+> **Decision needed**: Before I start building, please confirm:
+> 1. **Do you have API keys** for Google Gemini and/or OpenAI? (We need at least one)
+> 2. **Start with MVP scope** or build the full system?
+> 3. **Any preference** on which phase to start with?

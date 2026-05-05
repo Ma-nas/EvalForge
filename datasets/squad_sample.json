@@ -1,0 +1,72 @@
+[
+  {
+    "id": "sq001",
+    "question": "What is the capital of France?",
+    "context": "France is a country in Western Europe. Its capital city is Paris, which is known for the Eiffel Tower, the Louvre Museum, and its café culture. Paris has been the capital since the 10th century.",
+    "answer": "Paris",
+    "category": "geography"
+  },
+  {
+    "id": "sq002",
+    "question": "Who developed the theory of relativity?",
+    "context": "Albert Einstein was a German-born theoretical physicist who developed the theory of relativity, one of the two pillars of modern physics. His work is also known for its influence on the philosophy of science. He received the Nobel Prize in Physics in 1921.",
+    "answer": "Albert Einstein",
+    "category": "science"
+  },
+  {
+    "id": "sq003",
+    "question": "What programming language was Python named after?",
+    "context": "Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability. It was created by Guido van Rossum and first released in 1991. Van Rossum named it after the BBC comedy show Monty Python's Flying Circus.",
+    "answer": "Monty Python's Flying Circus",
+    "category": "technology"
+  },
+  {
+    "id": "sq004",
+    "question": "What is the largest organ in the human body?",
+    "context": "The skin is the largest organ of the human body. In adults, the skin covers an area of about 1.5 to 2 square meters and accounts for about 15% of total body weight. It serves as a protective barrier against pathogens and environmental damage.",
+    "answer": "The skin",
+    "category": "biology"
+  },
+  {
+    "id": "sq005",
+    "question": "When was the World Wide Web invented?",
+    "context": "The World Wide Web was invented by Tim Berners-Lee in 1989 while working at CERN. He wrote the first web browser in 1990, and the first web page was served in December 1990. The web became publicly available in 1991.",
+    "answer": "1989",
+    "category": "technology"
+  },
+  {
+    "id": "sq006",
+    "question": "What is machine learning?",
+    "context": "Machine learning is a subset of artificial intelligence that provides systems the ability to automatically learn and improve from experience without being explicitly programmed. It focuses on the development of computer programs that can access data and use it to learn for themselves.",
+    "answer": "A subset of artificial intelligence that provides systems the ability to automatically learn and improve from experience",
+    "category": "AI"
+  },
+  {
+    "id": "sq007",
+    "question": "What causes hallucinations in LLMs?",
+    "context": "Large Language Model hallucinations occur when the model generates text that is factually incorrect, nonsensical, or not grounded in the provided context. Common causes include training data biases, lack of real-time knowledge, overconfidence in pattern matching, and insufficient context grounding during generation.",
+    "answer": "Training data biases, lack of real-time knowledge, overconfidence in pattern matching, and insufficient context grounding",
+    "category": "AI"
+  },
+  {
+    "id": "sq008",
+    "question": "What is RAG in the context of LLMs?",
+    "context": "Retrieval-Augmented Generation (RAG) is a technique that combines information retrieval with text generation. It first retrieves relevant documents from a knowledge base, then uses those documents as context for the LLM to generate more accurate and grounded responses.",
+    "answer": "Retrieval-Augmented Generation - a technique that combines information retrieval with text generation",
+    "category": "AI"
+  },
+  {
+    "id": "sq009",
+    "question": "What is the speed of light?",
+    "context": "The speed of light in vacuum, commonly denoted as c, is a universal physical constant. Its exact value is 299,792,458 metres per second, approximately 300,000 km/s or 186,000 miles per second. It is the maximum speed at which all energy, matter, and information can travel.",
+    "answer": "299,792,458 metres per second",
+    "category": "physics"
+  },
+  {
+    "id": "sq010",
+    "question": "What is Docker used for?",
+    "context": "Docker is a platform for developing, shipping, and running applications inside lightweight, portable containers. Containers package an application with all its dependencies, ensuring it runs consistently across different environments from development to production.",
+    "answer": "Developing, shipping, and running applications inside lightweight, portable containers",
+    "category": "technology"
+  }
+]
