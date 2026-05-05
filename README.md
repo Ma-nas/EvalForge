@@ -1,4 +1,4 @@
-# 🔥 EvalForge
+# EvalForge
 
 ### Production-Grade LLM Evaluation, Benchmarking & Hallucination Detection Platform
 
