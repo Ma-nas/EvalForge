@@ -11,18 +11,18 @@
 
 ---
 
-## 📋 Overview
+## Overview
 
 **EvalForge** is a comprehensive system designed to evaluate, benchmark, and improve Large Language Model (LLM) outputs by:
 
-- 🎯 **Detecting Hallucinations** — Identifies unsupported claims using context grounding and embedding similarity
-- 📊 **Measuring Semantic Accuracy** — Computes similarity scores between expected and actual outputs
-- 🔗 **Evaluating RAG Pipelines** — Measures retrieval precision, context relevance, and faithfulness
-- ⚡ **Comparing Multiple LLMs** — Benchmarks models across accuracy, latency, and cost
+-  **Detecting Hallucinations** — Identifies unsupported claims using context grounding and embedding similarity
+-  **Measuring Semantic Accuracy** — Computes similarity scores between expected and actual outputs
+-  **Evaluating RAG Pipelines** — Measures retrieval precision, context relevance, and faithfulness
+-  **Comparing Multiple LLMs** — Benchmarks models across accuracy, latency, and cost
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 ┌─────────────────────────┐
@@ -56,38 +56,38 @@
 
 ---
 
-## ✨ Features
+##  Features
 
-### 1. 🎯 LLM Evaluation Engine
+### 1.  LLM Evaluation Engine
 - **Input**: Prompt + Context + Expected Output + Actual Output
 - **Output**: Semantic similarity, relevance score, hallucination score, composite quality rating
 - Supports single and batch evaluation
 
-### 2. 🛡️ Hallucination Detection
+### 2.  Hallucination Detection
 - Extracts individual claims from LLM output
 - Verifies each claim against source context using embedding similarity
 - Flags unsupported/fabricated facts with confidence scores
 - Provides evidence for supported claims
 
-### 3. ⚡ Multi-Model Benchmarking
+### 3.  Multi-Model Benchmarking
 - Compare Gemini, OpenAI GPT, and other models
 - Metrics: Accuracy, Latency (ms), Cost per 1K tokens
 - Side-by-side output comparison
 - Visual latency and accuracy charts
 
-### 4. 🔗 RAG Evaluation System
+### 4.  RAG Evaluation System
 - Retrieval Precision & Context Relevance
 - Answer Relevance & Groundedness
 - Faithfulness Score (sentence-level grounding)
 - Composite RAG quality score
 
-### 5. 📊 Interactive Dashboard
+### 5.  Interactive Dashboard
 - Real-time evaluation metrics
 - Model comparison charts (Bar, Radar, Pie, Line)
 - Quality distribution visualization
 - Weekly trend analysis
 
-### 6. 📁 Dataset Management
+### 6.  Dataset Management
 - Upload CSV/JSON datasets
 - Drag-and-drop file upload
 - Dataset preview with tabular view
@@ -95,7 +95,7 @@
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
@@ -109,7 +109,7 @@
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - Python 3.11+
@@ -160,7 +160,7 @@ npm run dev
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 EvalForge/
@@ -212,7 +212,7 @@ EvalForge/
 
 ---
 
-## 🔌 API Endpoints
+##  API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -230,18 +230,18 @@ EvalForge/
 
 ---
 
-## 🎯 Success Metrics
+##  Success Metrics
 
 | Metric | Target | Status |
 |--------|--------|--------|
-| Semantic evaluation accuracy | ≥ 85% | ✅ |
-| Hallucination detection precision | ≥ 70% | ✅ |
-| Average response latency | ≤ 300ms | ✅ |
-| Dataset size support | ≥ 1,000 samples | ✅ |
+| Semantic evaluation accuracy | ≥ 85% | 
+| Hallucination detection precision | ≥ 70% | 
+| Average response latency | ≤ 300ms | 
+| Dataset size support | ≥ 1,000 samples | 
 
 ---
 
-## 📊 Resume Impact
+## Resume Impact
 
 After building this project, you can write:
 
@@ -252,10 +252,10 @@ After building this project, you can write:
 
 ---
 
-## 📜 License
+##  License
 
 MIT License - feel free to use this project for learning and development.
 
 ---
 
-**Built with ❤️ using Python, FastAPI, React, and Sentence Transformers**
+
