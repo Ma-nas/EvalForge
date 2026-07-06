@@ -15,10 +15,15 @@
 
 **EvalForge** is a comprehensive system designed to evaluate, benchmark, and improve Large Language Model (LLM) outputs by:
 
--  **Detecting Hallucinations** — Identifies unsupported claims using context grounding and embedding similarity
--  **Measuring Semantic Accuracy** — Computes similarity scores between expected and actual outputs
--  **Evaluating RAG Pipelines** — Measures retrieval precision, context relevance, and faithfulness
--  **Comparing Multiple LLMs** — Benchmarks models across accuracy, latency, and cost
+## 🎥 Demo
+
+<video controls src="demo.mp4" width="100%"></video>
+
+
+- 🎯 **Detecting Hallucinations** — Identifies unsupported claims using context grounding and embedding similarity
+- 📊 **Measuring Semantic Accuracy** — Computes similarity scores between expected and actual outputs
+- 🔗 **Evaluating RAG Pipelines** — Measures retrieval precision, context relevance, and faithfulness
+- ⚡ **Comparing Multiple LLMs** — Benchmarks models across accuracy, latency, and cost
 
 ---
 
