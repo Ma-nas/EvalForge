@@ -1,0 +1,8 @@
+{
+  "name": "evalforge-frontend-alias",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "cd .. && npm run build && node -e \"const fs=require('fs'); fs.mkdirSync('frontend/dist', {recursive:true}); fs.cpSync('dist', 'frontend/dist', {recursive:true});\""
+  }
+}
