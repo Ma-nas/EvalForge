@@ -1,0 +1,20 @@
+name: Keep-Alive Pinger
+
+on:
+  schedule:
+    # Ping every 14 minutes to prevent free-tier cloud instances (e.g. Render) from spinning down
+    - cron: '*/14 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Backend Health Endpoint
+        run: |
+          if [ -n "${{ secrets.BACKEND_HEALTH_URL }}" ]; then
+            echo "Pinging ${{ secrets.BACKEND_HEALTH_URL }}..."
+            curl -s -f -m 30 "${{ secrets.BACKEND_HEALTH_URL }}" || echo "Ping failed or timed out"
+          else
+            echo "BACKEND_HEALTH_URL secret not set. Skipping ping."
+          fi
