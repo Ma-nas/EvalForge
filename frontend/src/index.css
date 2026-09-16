@@ -1,29 +1,32 @@
 @import "tailwindcss";
 
-/* ─── EvalForge Premium Design System ──────────────────── */
+/* ─── EvalForge: GTA Vice / Street-Art / Tactical HUD Design System ─── */
 
 @theme {
-  --color-dark-950: #05060a;
-  --color-dark-900: #0a0d15;
-  --color-dark-800: #0f1420;
-  --color-dark-700: #161c2e;
-  --color-dark-600: #1e2640;
-  --color-dark-500: #2a3452;
-  --color-accent-primary: #6366f1;
-  --color-accent-secondary: #8b5cf6;
+  --font-gta: 'Bebas Neue', cursive, sans-serif;
+  --font-hud: 'Chakra Petch', monospace, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Space Grotesk', -apple-system, sans-serif;
+
+  --color-base-dark: #07080c;
+  --color-panel-bg: #0e111a;
+  --color-panel-border: #1f2537;
+  --color-panel-border-bright: #364161;
+
+  --color-accent-lime: #22c55e;
+  --color-accent-orange: #f97316;
+  --color-accent-purple: #a855f7;
   --color-accent-cyan: #06b6d4;
-  --color-accent-emerald: #10b981;
-  --color-accent-amber: #f59e0b;
-  --color-accent-rose: #f43f5e;
-  --color-text-primary: #f1f5f9;
-  --color-text-secondary: #94a3b8;
-  --color-text-muted: #64748b;
-  --color-glass-border: rgba(255, 255, 255, 0.08);
-  --color-glass-bg: rgba(15, 20, 32, 0.6);
+  --color-accent-crimson: #ef4444;
+  --color-accent-gold: #eab308;
+
+  --color-text-bright: #f8fafc;
+  --color-text-offwhite: #e2e8f0;
+  --color-text-dim: #94a3b8;
+  --color-text-darker: #64748b;
 }
 
-/* ─── Global Styles ────────────────────────────────────── */
-
+/* ─── Base Styles ────────────────────────────────────────── */
 * {
   box-sizing: border-box;
 }
@@ -31,238 +34,325 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: var(--color-dark-950);
-  color: var(--color-text-primary);
+  background: var(--color-base-dark);
+  color: var(--color-text-offwhite);
+  font-family: 'Space Grotesk', sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
+  letter-spacing: -0.01em;
 }
 
-#root {
-  min-height: 100vh;
+/* ─── Map Grid & Topographic HUD Background ─────────────── */
+.bg-map-grid {
+  background-color: #07080c;
+  background-image: 
+    radial-gradient(rgba(168, 85, 247, 0.05) 1px, transparent 1px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 24px 24px, 120px 120px, 120px 120px;
 }
 
-/* ─── Glass Morphism Utilities ─────────────────────────── */
-
-.glass {
-  background: var(--color-glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--color-glass-border);
+/* Film Grain Overlay */
+.film-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-.glass-card {
-  background: linear-gradient(135deg, rgba(15, 20, 32, 0.8), rgba(30, 38, 64, 0.4));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--color-glass-border);
-  border-radius: 16px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* ─── Typography Utility Classes ────────────────────────── */
+.font-gta {
+  font-family: 'Bebas Neue', cursive, sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
-.glass-card:hover {
-  border-color: rgba(99, 102, 241, 0.3);
-  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.1);
-  transform: translateY(-2px);
+.font-hud {
+  font-family: 'Chakra Petch', monospace, sans-serif;
+  text-transform: uppercase;
 }
 
-/* ─── Gradient Utilities ───────────────────────────────── */
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
 
-.gradient-text {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+/* ─── GTA Oversized Gradient Headings ───────────────────── */
+.gta-title {
+  font-family: 'Bebas Neue', cursive, sans-serif;
+  letter-spacing: 0.04em;
+  line-height: 0.95;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #ffffff 10%, #d4d4d8 60%, #a1a1aa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
-.gradient-border {
+.gta-title-orange {
+  font-family: 'Bebas Neue', cursive, sans-serif;
+  letter-spacing: 0.04em;
+  line-height: 0.95;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #fdba74 0%, #f97316 60%, #ea580c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gta-title-green {
+  font-family: 'Bebas Neue', cursive, sans-serif;
+  letter-spacing: 0.04em;
+  line-height: 0.95;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #86efac 0%, #22c55e 60%, #16a34a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gta-title-purple {
+  font-family: 'Bebas Neue', cursive, sans-serif;
+  letter-spacing: 0.04em;
+  line-height: 0.95;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #d8b4fe 0%, #a855f7 60%, #7e22ce 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ─── Tactical HUD Panels & Chunky Cards ────────────────── */
+.hud-panel {
+  background: #0e111a;
+  border: 2px solid #1f2537;
   position: relative;
-  border: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.gradient-border::before {
+.hud-panel:hover {
+  border-color: #384260;
+}
+
+/* Corner bracket notches */
+.corner-notch {
+  position: relative;
+}
+
+.corner-notch::before {
   content: '';
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-
-/* ─── Animated Background ──────────────────────────────── */
-
-.bg-grid {
-  background-image: 
-    linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
-}
-
-.bg-glow {
-  position: fixed;
-  top: -200px;
-  right: -200px;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.08), transparent 70%);
+  top: -2px;
+  left: -2px;
+  width: 10px;
+  height: 10px;
+  border-top: 3px solid #f97316;
+  border-left: 3px solid #f97316;
   pointer-events: none;
-  z-index: 0;
 }
 
-.bg-glow-2 {
-  position: fixed;
-  bottom: -200px;
-  left: -200px;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.06), transparent 70%);
+.corner-notch::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  border-bottom: 3px solid #22c55e;
+  border-right: 3px solid #22c55e;
   pointer-events: none;
-  z-index: 0;
 }
 
-/* ─── Score Gauge Animations ───────────────────────────── */
-
-@keyframes score-fill {
-  from { stroke-dashoffset: 283; }
+/* ─── Polaroid / Photo-Card Style Panels ────────────────── */
+.polaroid-card {
+  background: #f8fafc;
+  color: #0f172a;
+  padding: 14px 14px 28px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.4);
+  transform: rotate(-1.2deg);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
 }
 
-@keyframes pulse-glow {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+.polaroid-card:hover {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
 }
 
-@keyframes slide-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.tape-strip {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(2deg);
+  width: 80px;
+  height: 22px;
+  background: rgba(253, 230, 138, 0.65);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-left: 2px dashed rgba(0, 0, 0, 0.1);
+  border-right: 2px dashed rgba(0, 0, 0, 0.1);
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* ─── Stamped Badges & Street-Art Stickers ───────────────── */
+.stamp-badge {
+  font-family: 'Bebas Neue', cursive, sans-serif;
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  border: 3px solid currentColor;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  line-height: 1;
+  display: inline-block;
+  transform: rotate(-4deg);
+  border-radius: 4px;
 }
 
-.animate-slide-up {
-  animation: slide-up 0.5s ease-out forwards;
+.stamp-verified {
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.12);
+  border-color: #22c55e;
 }
 
-.animate-fade-in {
-  animation: fade-in 0.3s ease-out forwards;
+.stamp-wanted {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+  border-color: #ef4444;
+  transform: rotate(3deg);
 }
 
-/* Staggered animations */
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
+.stamp-gold {
+  color: #eab308;
+  background: rgba(234, 179, 8, 0.12);
+  border-color: #eab308;
+  transform: rotate(-2deg);
+}
 
-/* ─── Custom Scrollbar ─────────────────────────────────── */
+/* ─── Chunky GTA-Style Action Buttons ───────────────────── */
+.btn-gta {
+  font-family: 'Bebas Neue', cursive, sans-serif;
+  font-size: 1.35rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.15s ease;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
 
+.btn-gta-orange {
+  background: #f97316;
+  color: #000000;
+  font-weight: 700;
+}
+.btn-gta-orange:hover {
+  background: #fb923c;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
+}
+
+.btn-gta-green {
+  background: #22c55e;
+  color: #000000;
+  font-weight: 700;
+}
+.btn-gta-green:hover {
+  background: #4ade80;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.4);
+}
+
+.btn-gta-purple {
+  background: #a855f7;
+  color: #ffffff;
+  font-weight: 700;
+}
+.btn-gta-purple:hover {
+  background: #c084fc;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.4);
+}
+
+.btn-gta-ghost {
+  background: #151924;
+  color: var(--color-text-offwhite);
+  border: 2px solid #283149;
+}
+.btn-gta-ghost:hover {
+  background: #1c2233;
+  border-color: #f97316;
+  color: #ffffff;
+}
+
+/* ─── Hazard Stripes ────────────────────────────────────── */
+.hazard-stripes {
+  background: repeating-linear-gradient(
+    -45deg,
+    #f97316,
+    #f97316 10px,
+    #07080c 10px,
+    #07080c 20px
+  );
+}
+
+.hazard-stripes-lime {
+  background: repeating-linear-gradient(
+    -45deg,
+    #22c55e,
+    #22c55e 10px,
+    #07080c 10px,
+    #07080c 20px
+  );
+}
+
+/* ─── Custom Inputs ─────────────────────────────────────── */
+.gta-input {
+  background: #0b0d14;
+  border: 2px solid #1f2537;
+  color: #f8fafc;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  padding: 12px 16px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.gta-input:focus {
+  border-color: #f97316;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+}
+
+.gta-input::placeholder {
+  color: #4b5563;
+}
+
+/* ─── Block Meter Display ───────────────────────────────── */
+.meter-block {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-dark-900);
+  background: #07080c;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-dark-500);
-  border-radius: 3px;
+  background: #252c40;
+  border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent-primary);
-}
-
-/* ─── Form Inputs ──────────────────────────────────────── */
-
-.input-glass {
-  background: rgba(15, 20, 32, 0.5);
-  border: 1px solid var(--color-glass-border);
-  border-radius: 12px;
-  padding: 12px 16px;
-  color: var(--color-text-primary);
-  font-size: 14px;
-  transition: all 0.2s;
-  outline: none;
-  width: 100%;
-}
-
-.input-glass:focus {
-  border-color: var(--color-accent-primary);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
-}
-
-.input-glass::placeholder {
-  color: var(--color-text-muted);
-}
-
-/* ─── Buttons ──────────────────────────────────────────── */
-
-.btn-primary {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 12px 24px;
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.35);
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-}
-
-.btn-primary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.btn-ghost {
-  background: transparent;
-  color: var(--color-text-secondary);
-  border: 1px solid var(--color-glass-border);
-  border-radius: 12px;
-  padding: 10px 20px;
-  font-weight: 500;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-ghost:hover {
-  background: rgba(99, 102, 241, 0.1);
-  border-color: var(--color-accent-primary);
-  color: var(--color-text-primary);
-}
-
-/* ─── Recharts Custom Styles ───────────────────────────── */
-
-.recharts-default-tooltip {
-  background: var(--color-dark-800) !important;
-  border: 1px solid var(--color-glass-border) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
-}
-
-.recharts-tooltip-label {
-  color: var(--color-text-primary) !important;
-  font-weight: 600 !important;
+  background: #f97316;
 }

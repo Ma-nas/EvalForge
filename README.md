@@ -1,266 +1,212 @@
-# EvalForge
+# 🔥 EvalForge — LLM Evaluation Matrix
 
-### Production-Grade LLM Evaluation, Benchmarking & Hallucination Detection Platform
-
-![Python](https://img.shields.io/badge/Python-3.11+-blue?style=flat-square&logo=python)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green?style=flat-square&logo=fastapi)
-![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-blue?style=flat-square&logo=tailwindcss)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
-
----
-
-## Overview
-
-**EvalForge** is a comprehensive system designed to evaluate, benchmark, and improve Large Language Model (LLM) outputs by:
-
-## 🎥 Demo
-
-<video controls src="demo.mp4" width="100%"></video>
-
-
-- 🎯 **Detecting Hallucinations** — Identifies unsupported claims using context grounding and embedding similarity
-- 📊 **Measuring Semantic Accuracy** — Computes similarity scores between expected and actual outputs
-- 🔗 **Evaluating RAG Pipelines** — Measures retrieval precision, context relevance, and faithfulness
-- ⚡ **Comparing Multiple LLMs** — Benchmarks models across accuracy, latency, and cost
-
----
-
-##  Architecture
+### Production-Grade LLM Evaluation, Multi-Model Benchmarking & Hallucination Detection Platform
 
 ```
-┌─────────────────────────┐
-│   React + TypeScript     │    Frontend (Tailwind CSS + Recharts)
-│   Dashboard UI           │
-└──────────┬──────────────┘
-           │ REST API
-┌──────────▼──────────────┐
-│   FastAPI Backend        │    API Layer
-│   /api/v1/*              │
-└──────────┬──────────────┘
-           │
-┌──────────▼──────────────┐
-│   Evaluation Engine      │
-│  ┌─────────────────────┐│
-│  │ Embedding Model      ││    Sentence Transformers (all-MiniLM-L6-v2)
-│  │ (Semantic Similarity)││
-│  ├─────────────────────┤│
-│  │ LLM APIs            ││    Gemini / OpenAI
-│  │ (Benchmarking)      ││
-│  ├─────────────────────┤│
-│  │ Scoring Engine       ││    Composite scoring with weighted metrics
-│  │ (Quality Assessment) ││
-│  └─────────────────────┘│
-└──────────┬──────────────┘
-           │
-┌──────────▼──────────────┐
-│   SQLite Database        │    Evaluation results & metadata
-└─────────────────────────┘
+  ███████╗██╗   ██╗ █████╗ ██╗     ███████╗ ██████╗ ██████╗  ██████╗ ███████╗
+  ██╔════╝██║   ██║██╔══██╗██║     ██╔════╝██╔═══██╗██╔══██╗██╔════╝ ██╔════╝
+  █████╗  ██║   ██║███████║██║     █████╗  ██║   ██║██████╔╝██║  ███╗█████╗  
+  ██╔══╝  ╚██╗ ██╔╝██╔══██║██║     ██╔══╝  ██║   ██║██╔══██╗██║   ██║██╔══╝  
+  ███████╗ ╚████╔╝ ██║  ██║███████╗██║     ╚██████╔╝██║  ██║╚██████╔╝███████╗
+  ╚══════╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+                     RATE. ANALYZE. DOMINATE.
+```
+
+![Python](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green?style=for-the-badge&logo=fastapi)
+![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-violet?style=for-the-badge&logo=tailwindcss)
+![Pytest](https://img.shields.io/badge/Pytest-100%25_Passing-emerald?style=for-the-badge&logo=pytest)
+![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+
+---
+
+## 🎯 Overview
+
+**EvalForge** is an industry-grade, developer-first platform built to benchmark, evaluate, and audit Large Language Model (LLM) outputs with military-precision scoring. Styled with a tactical GTA-menu aesthetic, it combines rigorous NLP metrics with real-time HUD visualizations:
+
+- 🎯 **Detect Hallucinations** — Breaks text into atomic claims, cross-examining against reference ground-truth with semantic embeddings (`all-MiniLM-L6-v2`).
+- 📊 **Measure Semantic Accuracy** — Computes composite similarity, prompt relevance, and groundedness ratings across models.
+- 🔗 **Audit RAG Pipelines** — Measures retrieval precision, context relevance, sentence-level faithfulness, and answer relevance.
+- ⚡ **Multi-Model Warzones** — Head-to-head benchmarking comparing accuracy, latency (ms), and cost estimates ($/1K tokens) across Gemini, GPT-4o, and GPT-3.5.
+- 💾 **Armored Data Management** — Ingest CSV and JSON benchmark corpora, with instant batch evaluation directly from datasets.
+- 📤 **Enterprise Reporting** — 1-click CSV & JSON telemetry export for CI/CD evaluation gates and performance audits.
+
+---
+
+## 🎮 Visual Style & HUD Matrix
+
+The frontend pairs high-octane GTA loading screen typography (`Bebas Neue`, `Chakra Petch`, `JetBrains Mono`) with tactical game HUD elements:
+
+```
++-------------------------------------------------------------------------+
+| [01] EVALUATION MATRIX                                                  |
+| RATE. ANALYZE. DOMINATE.                                                |
+| PROJECTS | EVALUATIONS | ANALYTICS | LEADERBOARD                        |
++-------------------------------------------------------------------------+
+| PROJECT #042: AI RESUME ANALYZER                                        |
+| OVERALL SCORE: 92 / 100  [RANK: A+]                                     |
+|                                                                         |
+| UI/UX          █████████░ 94                                            |
+| FUNCTIONALITY  ██████████ 98                                            |
+| PERFORMANCE    ████████░░ 87                                            |
+| CODE QUALITY   █████████░ 91                                            |
+|                                                                         |
+| [ START EVALUATION -> ]                 [ EXPORT CSV ]                  |
++-------------------------------------------------------------------------+
 ```
 
 ---
 
-##  Features
+## 🏗️ Architecture
 
-### 1.  LLM Evaluation Engine
-- **Input**: Prompt + Context + Expected Output + Actual Output
-- **Output**: Semantic similarity, relevance score, hallucination score, composite quality rating
-- Supports single and batch evaluation
-
-### 2.  Hallucination Detection
-- Extracts individual claims from LLM output
-- Verifies each claim against source context using embedding similarity
-- Flags unsupported/fabricated facts with confidence scores
-- Provides evidence for supported claims
-
-### 3.  Multi-Model Benchmarking
-- Compare Gemini, OpenAI GPT, and other models
-- Metrics: Accuracy, Latency (ms), Cost per 1K tokens
-- Side-by-side output comparison
-- Visual latency and accuracy charts
-
-### 4.  RAG Evaluation System
-- Retrieval Precision & Context Relevance
-- Answer Relevance & Groundedness
-- Faithfulness Score (sentence-level grounding)
-- Composite RAG quality score
-
-### 5.  Interactive Dashboard
-- Real-time evaluation metrics
-- Model comparison charts (Bar, Radar, Pie, Line)
-- Quality distribution visualization
-- Weekly trend analysis
-
-### 6.  Dataset Management
-- Upload CSV/JSON datasets
-- Drag-and-drop file upload
-- Dataset preview with tabular view
-- Built-in SQuAD and TruthfulQA sample datasets
+```
+┌────────────────────────────────────────────────────────┐
+│             React 19 + TypeScript + Vite               │
+│      GTA HUD Dashboard • Block Meters • Recharts       │
+└───────────────────────────┬────────────────────────────┘
+                            │ REST API (JSON / Bearer JWT)
+┌───────────────────────────▼────────────────────────────┐
+│                  FastAPI Backend 0.115                 │
+│      SlowAPI Rate Limiter • BCrypt Auth • CORS         │
+└──────┬────────────────────┬────────────────────┬───────┘
+       │                    │                    │
+┌──────▼──────┐      ┌──────▼──────┐      ┌──────▼───────┐
+│ Evaluation  │      │ Hallucin.   │      │ Multi-Model  │
+│  Engine     │      │   Radar     │      │   Warzone    │
+└──────┬──────┘      └──────┬──────┘      └──────┬───────┘
+       │                    │                    │
+       ├────────────────────┴────────────────────┤
+       │   Embeddings: all-MiniLM-L6-v2 (Torch) │
+       │   APIs: Google Gemini & OpenAI GPT      │
+       └────────────────────┬────────────────────┘
+                            │
+┌───────────────────────────▼────────────────────────────┐
+│            SQLite / PostgreSQL (SQLAlchemy)            │
+│  evaluations • benchmarks • hallucinations • datasets   │
+└────────────────────────────────────────────────────────┘
+```
 
 ---
 
-##  Tech Stack
+## ⚡ Quick Start
 
-| Layer | Technology |
-|-------|-----------|
-| **Backend** | Python 3.11+, FastAPI, Uvicorn |
-| **ML/Embeddings** | Sentence Transformers, NumPy, scikit-learn |
-| **LLM APIs** | Google Gemini API, OpenAI API |
-| **Frontend** | React 18, TypeScript, Tailwind CSS 4, Vite |
-| **Visualization** | Recharts |
-| **Database** | SQLite (SQLAlchemy ORM) |
-| **Containerization** | Docker |
+### Option 1: Docker Compose (Recommended)
 
----
+Spin up both the FastAPI backend and React frontend with a single command:
 
-##  Quick Start
-
-### Prerequisites
-- Python 3.11+
-- Node.js 18+
-- API keys for Gemini and/or OpenAI (optional for evaluation-only mode)
-
-### 1. Clone the Repository
 ```bash
+# Clone the repository
 git clone https://github.com/Ma-nas/EvalForge.git
 cd EvalForge
-```
 
-### 2. Backend Setup
+# Launch the entire stack
+docker-compose up --build
+```
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8000
+- **Swagger Docs**: http://localhost:8000/docs
+
+---
+
+### Option 2: Local Development
+
+#### 1. Backend Setup
+
 ```bash
 cd backend
 
-# Create virtual environment
+# Create & activate virtual environment
 python -m venv venv
-venv\Scripts\activate  # Windows
-# source venv/bin/activate  # macOS/Linux
+venv\Scripts\activate       # Windows
+# source venv/bin/activate  # macOS / Linux
 
 # Install dependencies
 pip install -r requirements.txt
+pip install pytest pytest-asyncio
 
-# Configure environment
+# Configure environment variables
 copy .env.example .env
-# Edit .env and add your API keys
 
-# Start the server
+# Run server
 uvicorn app.main:app --reload --port 8000
 ```
 
-### 3. Frontend Setup
+#### 2. Frontend Setup
+
 ```bash
 cd frontend
 
-# Install dependencies
+# Install Node dependencies
 npm install
 
-# Start dev server
+# Start Vite dev server
 npm run dev
 ```
 
-### 4. Open the App
-- **Frontend**: http://localhost:5173
-- **API Docs**: http://localhost:8000/docs
-- **API Health**: http://localhost:8000/health
-
 ---
 
-##  Project Structure
+## 🧪 Automated Test Suite
+
+EvalForge includes a 100% passing automated test suite covering all authentication, evaluation, hallucination, RAG, and dataset endpoints:
+
+```bash
+cd backend
+pytest tests/ -v
+```
 
 ```
-EvalForge/
-├── backend/
-│   ├── app/
-│   │   ├── main.py                 # FastAPI entry point
-│   │   ├── api/routes/
-│   │   │   ├── evaluation.py       # Evaluation endpoints
-│   │   │   ├── hallucination.py    # Hallucination detection endpoints
-│   │   │   ├── benchmark.py        # Benchmarking endpoints
-│   │   │   ├── rag.py              # RAG evaluation endpoints
-│   │   │   └── dataset.py          # Dataset management endpoints
-│   │   ├── core/
-│   │   │   ├── config.py           # Settings & environment
-│   │   │   ├── embeddings.py       # Sentence Transformer embeddings
-│   │   │   └── scoring.py          # Composite scoring engine
-│   │   ├── models/
-│   │   │   ├── schemas.py          # Pydantic request/response models
-│   │   │   └── database.py         # SQLAlchemy ORM models
-│   │   └── services/
-│   │       ├── evaluator.py        # LLM evaluation logic
-│   │       ├── hallucination.py    # Hallucination detection logic
-│   │       ├── benchmark.py        # Multi-model benchmarking
-│   │       └── rag_evaluator.py    # RAG pipeline evaluation
-│   ├── requirements.txt
-│   ├── Dockerfile
-│   └── .env.example
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Sidebar.tsx         # Navigation sidebar
-│   │   │   └── ScoreCard.tsx       # Circular gauge score card
-│   │   ├── pages/
-│   │   │   ├── Dashboard.tsx       # Main dashboard with charts
-│   │   │   ├── Evaluate.tsx        # LLM evaluation page
-│   │   │   ├── Hallucination.tsx   # Hallucination detection page
-│   │   │   ├── Benchmark.tsx       # Model benchmarking page
-│   │   │   ├── RAG.tsx             # RAG evaluation page
-│   │   │   └── Datasets.tsx        # Dataset management page
-│   │   ├── api.ts                  # API client
-│   │   ├── App.tsx                 # Main app with routing
-│   │   └── index.css               # Design system & styles
-│   └── package.json
-├── datasets/
-│   ├── squad_sample.json           # SQuAD-style QA dataset
-│   └── truthfulqa_sample.csv       # TruthfulQA hallucination dataset
-└── README.md
+tests/test_auth.py::test_register_and_login_flow PASSED           [12%]
+tests/test_datasets.py::test_dataset_seed_and_batch_evaluate PASSED [25%]
+tests/test_datasets.py::test_export_endpoints PASSED              [37%]
+tests/test_evaluation.py::test_evaluate_single PASSED             [50%]
+tests/test_evaluation.py::test_evaluate_batch PASSED              [62%]
+tests/test_hallucination.py::test_detect_hallucination_factual PASSED [75%]
+tests/test_hallucination.py::test_detect_hallucination_fabricated PASSED [87%]
+tests/test_rag.py::test_rag_evaluation PASSED                     [100%]
+
+======================= 8 passed in 21.40s =======================
 ```
 
 ---
 
-##  API Endpoints
+## 📡 API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `POST` | `/api/v1/evaluation/evaluate` | Single LLM evaluation |
-| `POST` | `/api/v1/evaluation/evaluate/batch` | Batch evaluation |
-| `POST` | `/api/v1/hallucination/detect` | Hallucination detection |
-| `POST` | `/api/v1/benchmark/run` | Single benchmark run |
-| `POST` | `/api/v1/benchmark/run/batch` | Batch benchmarking |
-| `POST` | `/api/v1/rag/evaluate` | RAG pipeline evaluation |
-| `POST` | `/api/v1/datasets/upload` | Upload dataset (CSV/JSON) |
-| `GET` | `/api/v1/datasets/` | List all datasets |
-| `GET` | `/api/v1/datasets/{id}` | Get dataset info |
-| `GET` | `/api/v1/datasets/{id}/data` | Get dataset data |
-| `DELETE` | `/api/v1/datasets/{id}` | Delete dataset |
+| `POST` | `/api/v1/auth/register` | Register new operator with hashed credentials |
+| `POST` | `/api/v1/auth/login` | Authenticate & retrieve Bearer JWT |
+| `GET`  | `/api/v1/auth/me` | Fetch active operator identity |
+| `GET`  | `/api/v1/dashboard/summary` | Real-time aggregate telemetry & weekly trends |
+| `POST` | `/api/v1/evaluation/evaluate` | Single LLM semantic & quality evaluation |
+| `POST` | `/api/v1/evaluation/evaluate/batch` | Batch evaluation across sample sets |
+| `POST` | `/api/v1/hallucination/detect` | Deconstruct claims & audit context support |
+| `GET`  | `/api/v1/hallucination/history` | Audit log of previous hallucination scans |
+| `POST` | `/api/v1/benchmark/run` | Multi-model shootout (accuracy, latency, cost) |
+| `POST` | `/api/v1/benchmark/run/batch` | Batch benchmarking across multiple models |
+| `POST` | `/api/v1/rag/evaluate` | Audit RAG pipeline precision & faithfulness |
+| `GET`  | `/api/v1/rag/history` | Audit log of previous RAG pipeline runs |
+| `POST` | `/api/v1/datasets/upload` | Upload `.csv` or `.json` evaluation dataset |
+| `POST` | `/api/v1/datasets/seed` | Auto-seed SQuAD and TruthfulQA test corpora |
+| `GET`  | `/api/v1/datasets/{id}/data` | Tabular preview of dataset rows |
+| `POST` | `/api/v1/datasets/{id}/evaluate`| Execute batch evaluation directly from dataset |
+| `GET`  | `/api/v1/export/evaluations` | Export evaluation records (`?format=csv\|json`) |
+| `GET`  | `/api/v1/export/benchmarks` | Export benchmark records (`?format=csv\|json`) |
 
 ---
 
-##  Success Metrics
+## 💼 Resume & Engineering Highlights
 
-| Metric | Target | Status |
-|--------|--------|--------|
-| Semantic evaluation accuracy | ≥ 85% | 
-| Hallucination detection precision | ≥ 70% | 
-| Average response latency | ≤ 300ms | 
-| Dataset size support | ≥ 1,000 samples | 
-
----
-
-## Resume Impact
-
-After building this project, you can write:
-
-> - Engineered an LLM evaluation platform that improved hallucination detection accuracy by implementing embedding-based scoring and retrieval validation
-> - Built a multi-model benchmarking system comparing accuracy, latency, and cost across LLM APIs (Gemini, OpenAI)
-> - Developed a RAG evaluation module quantifying retrieval relevance using semantic similarity techniques
-> - Designed a scalable system with API-driven architecture and interactive dashboard for real-time evaluation
+- **Engineered an LLM Evaluation Matrix**: Designed an embedding-based evaluation engine quantifying semantic divergence, prompt relevance, and groundedness using Sentence Transformers.
+- **Built Hallucination Detection Engine**: Developed an automated claim extractor and verification pipeline flagging fabricated assertions against reference passages with sentence-level citations.
+- **Multi-Model Warzone Benchmarking**: Constructed real-time benchmarking architecture measuring latency, accuracy, and token economics across Google Gemini and OpenAI GPT models.
+- **RAG Pipeline Auditing**: Implemented a 5-pillar RAG evaluation system calculating retrieval precision, context relevance, and output faithfulness.
+- **Full-Stack Production Architecture**: Engineered FastAPI backend with SQLite persistence, BCrypt JWT authentication, rate limiting, and a custom React 19 / Tailwind CSS 4 frontend styled with an arcade GTA visual identity.
 
 ---
 
-##  License
+## 📜 License
 
-MIT License - feel free to use this project for learning and development.
-
----
-
-
+Distributed under the MIT License. See `LICENSE` for more information.

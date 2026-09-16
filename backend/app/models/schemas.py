@@ -3,7 +3,7 @@ EvalForge - Pydantic Schemas
 Request/Response models for the API.
 """
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 from enum import Enum
@@ -23,14 +23,51 @@ class EvaluationType(str, Enum):
     RAG = "rag"
 
 
+# ─── Auth Schemas ─────────────────────────────────────────
+
+class UserCreate(BaseModel):
+    """Request body for user registration."""
+    email: str = Field(..., description="User email address")
+    username: str = Field(..., min_length=3, max_length=50, description="Username")
+    password: str = Field(..., min_length=6, description="Password (min 6 chars)")
+
+    @field_validator("email")
+    @classmethod
+    def validate_email(cls, v: str) -> str:
+        if "@" not in v or "." not in v.split("@")[-1]:
+            raise ValueError("Invalid email format")
+        return v.lower().strip()
+
+
+class UserLogin(BaseModel):
+    """Request body for login."""
+    email: str = Field(..., description="User email address")
+    password: str = Field(..., description="Password")
+
+
+class UserResponse(BaseModel):
+    """Response for user info."""
+    id: str
+    email: str
+    username: str
+    created_at: str
+
+
+class TokenResponse(BaseModel):
+    """Response for authentication token."""
+    access_token: str
+    token_type: str = "bearer"
+    user: UserResponse
+
+
 # ─── Evaluation Schemas ──────────────────────────────────
 
 class EvaluationRequest(BaseModel):
     """Request body for single evaluation."""
-    prompt: str = Field(..., description="The input prompt sent to the LLM")
+    prompt: str = Field(..., min_length=1, description="The input prompt sent to the LLM")
     context: Optional[str] = Field(None, description="Context/reference document")
-    expected_output: str = Field(..., description="Expected/ground-truth output")
-    actual_output: str = Field(..., description="The LLM's actual output")
+    expected_output: str = Field(..., min_length=1, description="Expected/ground-truth output")
+    actual_output: str = Field(..., min_length=1, description="The LLM's actual output")
     model_name: Optional[str] = Field(None, description="Name of the model that generated the output")
 
 
@@ -72,8 +109,8 @@ class BatchEvaluationResponse(BaseModel):
 
 class HallucinationRequest(BaseModel):
     """Request for hallucination detection."""
-    context: str = Field(..., description="Source context/document")
-    output: str = Field(..., description="LLM output to check")
+    context: str = Field(..., min_length=10, description="Source context/document")
+    output: str = Field(..., min_length=10, description="LLM output to check")
     prompt: Optional[str] = Field(None, description="Original prompt")
 
 
@@ -87,6 +124,7 @@ class HallucinationClaim(BaseModel):
 
 class HallucinationResponse(BaseModel):
     """Response for hallucination detection."""
+    id: Optional[str] = None
     hallucination_score: float
     total_claims: int
     supported_claims: int
@@ -94,13 +132,14 @@ class HallucinationResponse(BaseModel):
     claims: List[HallucinationClaim]
     flags: List[str]
     details: Dict[str, Any]
+    timestamp: Optional[str] = None
 
 
 # ─── Benchmark Schemas ────────────────────────────────────
 
 class BenchmarkRequest(BaseModel):
     """Request for multi-model benchmarking."""
-    prompt: str = Field(..., description="Prompt to benchmark")
+    prompt: str = Field(..., min_length=1, description="Prompt to benchmark")
     context: Optional[str] = Field(None, description="Optional context")
     expected_output: Optional[str] = Field(None, description="Optional expected output")
     models: List[str] = Field(
@@ -149,14 +188,15 @@ class BatchBenchmarkResponse(BaseModel):
 
 class RAGEvaluationRequest(BaseModel):
     """Request for RAG evaluation."""
-    query: str = Field(..., description="User query")
-    retrieved_contexts: List[str] = Field(..., description="Retrieved document chunks")
-    generated_output: str = Field(..., description="RAG-generated output")
+    query: str = Field(..., min_length=1, description="User query")
+    retrieved_contexts: List[str] = Field(..., min_length=1, description="Retrieved document chunks")
+    generated_output: str = Field(..., min_length=1, description="RAG-generated output")
     ground_truth: Optional[str] = Field(None, description="Ground truth answer")
 
 
 class RAGEvaluationResponse(BaseModel):
     """Response for RAG evaluation."""
+    id: Optional[str] = None
     retrieval_precision: float
     context_relevance: float
     answer_relevance: float
@@ -170,6 +210,16 @@ class RAGEvaluationResponse(BaseModel):
 
 # ─── Dataset Schemas ──────────────────────────────────────
 
+class DatasetBatchEvaluateRequest(BaseModel):
+    """Request to batch evaluate rows from an existing dataset."""
+    prompt_column: str = "question"
+    expected_output_column: str = "best_answer"
+    context_column: Optional[str] = None
+    actual_output_column: Optional[str] = None
+    model_name: Optional[str] = "gemini-1.5-flash"
+    max_samples: int = 20
+
+
 class DatasetInfo(BaseModel):
     """Information about an uploaded dataset."""
     id: str
@@ -177,7 +227,7 @@ class DatasetInfo(BaseModel):
     format: str
     total_rows: int
     columns: List[str]
-    preview: List[Dict[str, Any]]
+    preview: List[Dict[str, Any]] = []
     uploaded_at: str
 
 
@@ -200,3 +250,12 @@ class DashboardStats(BaseModel):
     recent_evaluations: List[Dict[str, Any]]
     score_distribution: Dict[str, int]
     model_comparison: List[Dict[str, Any]]
+
+
+class DashboardSummaryResponse(BaseModel):
+    """Response for dashboard summary endpoint."""
+    metrics: Dict[str, Any]
+    model_comparison: List[Dict[str, Any]]
+    quality_distribution: Dict[str, int]
+    trend_data: List[Dict[str, Any]]
+    recent_evaluations: List[Dict[str, Any]]

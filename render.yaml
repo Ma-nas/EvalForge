@@ -1,0 +1,45 @@
+services:
+  # 1. Backend FastAPI Service
+  - type: web
+    name: evalforge-backend
+    env: docker
+    dockerContext: backend
+    dockerfilePath: Dockerfile
+    plan: free
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        value: sqlite:////data/evalforge.db
+      - key: EMBEDDING_MODEL
+        value: all-MiniLM-L6-v2
+      - key: PORT
+        value: 8000
+      - key: HOST
+        value: 0.0.0.0
+      - key: CORS_ORIGINS
+        value: "*"
+    disk:
+      name: evalforge-db-data
+      mountPath: /data
+      sizeGB: 1
+
+  # 2. Frontend React static site
+  - type: web
+    name: evalforge-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    publishDir: frontend/dist
+    plan: free
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: evalforge-backend
+          property: host
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

@@ -7,6 +7,8 @@ import numpy as np
 from typing import List, Optional
 from functools import lru_cache
 
+from app.core.config import logger
+
 
 class EmbeddingService:
     """Handles text embedding generation and similarity calculations."""
@@ -24,9 +26,9 @@ class EmbeddingService:
         if self._model is None:
             from sentence_transformers import SentenceTransformer
             from app.core.config import settings
-            print(f"📦 Loading embedding model: {settings.EMBEDDING_MODEL}")
+            logger.info(f"Loading embedding model: {settings.EMBEDDING_MODEL}")
             self._model = SentenceTransformer(settings.EMBEDDING_MODEL)
-            print("✅ Embedding model loaded successfully")
+            logger.info("Embedding model loaded successfully")
         return self._model
 
     def encode(self, texts: List[str]) -> np.ndarray:
