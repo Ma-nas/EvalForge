@@ -1,7 +1,8 @@
 {
-  "name": "frontend",
+  "name": "evalforge-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "EvalForge GTA HUD Evaluation Interface",
   "type": "module",
   "scripts": {
     "dev": "vite",
