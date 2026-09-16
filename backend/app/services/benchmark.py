@@ -90,17 +90,26 @@ class BenchmarkService:
 
     async def _call_gemini(self, prompt: str) -> tuple:
         if not settings.GEMINI_API_KEY:
-
             await asyncio.sleep(0.22)
             output = f"[Simulated Gemini Output] Based on the query, here is the generated response addressing: {prompt[:100]}."
             return output, max(int(len(output.split()) * 1.3), 35)
 
         import google.generativeai as genai
         genai.configure(api_key=settings.GEMINI_API_KEY)
-        model = genai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content(prompt)
-        output = response.text
-        return output, int(len(output.split()) * 1.3)
+
+        # Support active models (Google has promoted gemini-2.5-flash in modern API regions)
+        candidate_models = ["gemini-2.5-flash", "gemini-flash-latest", "gemini-1.5-flash"]
+        last_error = None
+        for candidate in candidate_models:
+            try:
+                model = genai.GenerativeModel(candidate)
+                response = model.generate_content(prompt)
+                output = response.text
+                return output, int(len(output.split()) * 1.3)
+            except Exception as e:
+                last_error = e
+                continue
+        raise last_error or RuntimeError("Gemini API generation failed")
 
     async def _call_openai(self, prompt: str, model_name: str = "gpt-3.5-turbo") -> tuple:
         actual_model = model_name if model_name != "openai" else "gpt-3.5-turbo"
